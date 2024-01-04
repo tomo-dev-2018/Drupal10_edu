@@ -1,0 +1,32 @@
+name: drupa10-test
+recipe: drupal10
+config:
+  webroot: web
+services:
+  mailhog:
+    type: mailhog
+    portforward: false
+    hogfrom:
+      - appserver
+  phpmyadmin:
+    type: phpmyadmin
+    hosts:
+        - database
+  appserver:
+    xdebug: debug
+    config:
+      php: .vscode/php.ini
+    overrides:
+      environment:
+        SIMPLETEST_BASE_URL: "http://drupa10-test.lndo.site/"
+        SIMPLETEST_DB: "mysql://drupal10:drupal10@database/drupal10"
+        MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'
+tooling:
+  test:
+    service: appserver
+    cmd: "php /app/vendor/bin/phpunit -c /app/phpunit.xml"
+  drupal:
+    service: appserver
+    description: Runs Drupal console
+    cmd: /app/vendor/bin/drupal
+    user: www-data
