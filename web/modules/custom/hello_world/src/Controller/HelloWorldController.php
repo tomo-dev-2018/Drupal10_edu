@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
   /**
    * HelloWorldController constructor.
-   * 
+   *
    * @papram \Drupal\hello_world\HelloWorldSalutation $salutation
    */
 
@@ -43,7 +43,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
   /**
    * Hello World.
-   * 
+   *
    * @return array
    * Our message.
    */
